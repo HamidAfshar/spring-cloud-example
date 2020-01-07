@@ -1,0 +1,57 @@
+server:
+  port: 9001
+  tomcat:
+    max-threads: 2000
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka
+#ribbon:
+#  ReadTimeout: 30000
+#  SocketTimeout: 30000
+
+zuul:
+  ignored-services: '*'
+  routes:
+    servicea:
+      path: /a/**
+      serviceId: servicea
+    serviceb:
+      path: /b/**
+      serviceId: serviceb
+  semaphore:
+    max-semaphores: 1000
+  ribbon-isolation-strategy: thread
+  thread-pool:
+    use-separate-thread-pools: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+#            timeoutInMilliseconds: 65000
+  threadpool:
+    servicea:
+      coreSize: 223
+    serviceb:
+      coreSize: 123
+    default:
+      allowMaximumSizeToDivergeFromCoreSize: true
+      coreSize: 100
+      maximumSize: 2000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: "gateway"

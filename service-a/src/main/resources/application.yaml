@@ -1,0 +1,23 @@
+
+
+eureka:
+  client:
+    healthcheck: true
+    service-url:
+      defaultZone: http://localhost:9000/eureka
+server:
+  port: 9002
+  tomcat:
+    max-threads: 2000
+spring:
+  application:
+    name: ServiceA
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    jmx:
+      exposure:
+        include: "*"
