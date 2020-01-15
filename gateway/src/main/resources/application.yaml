@@ -33,16 +33,18 @@ hystrix:
       execution:
         isolation:
           thread:
-#            timeoutInMilliseconds: 65000
+            timeoutInMilliseconds: 65000
   threadpool:
-    servicea:
-      coreSize: 223
-    serviceb:
-      coreSize: 123
+#    servicea:
+#      coreSize: 20
+#    serviceb:
+#      coreSize: 20
     default:
       allowMaximumSizeToDivergeFromCoreSize: true
-      coreSize: 100
-      maximumSize: 2000
+      coreSize: 20
+      maximumSize: 50
+      maxQueueSize: 10
+      queueSizeRejectionThreshold: 10
 
 management:
   endpoints:
@@ -55,3 +57,12 @@ management:
 spring:
   application:
     name: "gateway"
+  rabbitmq:
+    host: common-server
+    username: admin
+    password: admin
+  zipkin:
+    sender:
+      type: rabbit
+    rabbitmq:
+      addresses: common-server

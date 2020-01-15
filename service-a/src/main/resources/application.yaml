@@ -12,7 +12,16 @@ server:
 spring:
   application:
     name: ServiceA
-
+  rabbitmq:
+    host: common-server
+    username: admin
+    password: admin
+  zipkin:
+    sender:
+      type: rabbit
+    rabbitmq:
+      addresses: common-server
+prop: hamid
 management:
   endpoints:
     web:
